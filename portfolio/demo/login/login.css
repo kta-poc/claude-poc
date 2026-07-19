@@ -1,0 +1,77 @@
+/* ログイン画面デモ専用の追加スタイル（共有 css/style.css を読み込んだ上で適用） */
+
+.login-page {
+  min-height: calc(100vh - 220px);
+  display: grid;
+  place-items: center;
+  padding: 56px 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  background: #fff;
+  border: 1px solid #e8e8e3;
+  border-radius: 16px;
+  padding: 40px 32px;
+  box-shadow: 0 8px 30px rgba(38, 40, 43, 0.06);
+  display: grid;
+  gap: 20px;
+}
+
+/* display指定がUAスタイルの [hidden]{display:none} に勝ってしまうため明示する（style.css と同じ流儀） */
+.login-card[hidden] {
+  display: none;
+}
+
+.login-card__title {
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.4;
+}
+/* ログイン成功時にプログラム的にフォーカスを移すため、見出しのフォーカスリングは出さない */
+.login-card__title[tabindex="-1"]:focus {
+  outline: none;
+}
+.login-card__title-en {
+  display: block;
+  font-family: var(--font-en);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--color-accent);
+}
+
+.login-form {
+  display: grid;
+  gap: 18px;
+}
+.login-form .btn {
+  justify-self: center;
+}
+.login-form .btn:disabled {
+  opacity: 0.6;
+  transform: none;
+  box-shadow: none;
+  cursor: default;
+}
+
+/* 総称認証エラー（どのフィールドが誤りかは明かさない） */
+.login-form__auth-error {
+  background: #fdf0ee;
+  border: 1px solid #eac2bc;
+  color: #c0392b;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+
+.mypage__welcome {
+  font-size: 16px;
+}
+.mypage__note {
+  font-size: 13px;
+  color: var(--color-muted);
+}
+.mypage .btn {
+  justify-self: start;
+}

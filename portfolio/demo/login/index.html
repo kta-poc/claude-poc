@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ログイン画面デモ｜TK Web Design</title>
+  <meta name="description" content="ログイン画面のUI実装デモ。入力バリデーション・認証エラー表示・画面遷移をJavaScriptで実装しています。実際の認証は行いません。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Inter:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <header class="header">
+    <p class="header__logo">TK<span>.</span>web</p>
+    <nav class="header__nav">
+      <a href="../../index.html">← ポートフォリオに戻る</a>
+    </nav>
+  </header>
+
+  <main class="login-page">
+    <section class="login-card" id="login-view" aria-labelledby="login-title">
+      <h1 class="login-card__title" id="login-title"><span class="login-card__title-en">LOGIN DEMO</span>ログイン画面デモ</h1>
+
+      <p class="contact__demo-note">
+        ※ これはポートフォリオ用のUIデモです。実際の認証・通信は行いません。<br>
+        デモ用アカウント: <strong>demo@example.com</strong> / <strong>demo1234</strong>
+      </p>
+
+      <form class="login-form" id="login-form" novalidate>
+        <div class="form__field">
+          <label for="login-email">メールアドレス <span class="form__required">必須</span></label>
+          <input type="email" id="login-email" name="email" autocomplete="username" placeholder="demo@example.com">
+          <p class="form__error" data-error-for="login-email" hidden></p>
+        </div>
+        <div class="form__field">
+          <label for="login-password">パスワード <span class="form__required">必須</span></label>
+          <input type="password" id="login-password" name="password" autocomplete="current-password">
+          <p class="form__error" data-error-for="login-password" hidden></p>
+        </div>
+        <p class="login-form__auth-error" id="login-auth-error" role="alert" hidden>メールアドレスまたはパスワードが違います</p>
+        <button type="submit" class="btn btn--primary btn--large">ログイン（デモ）</button>
+      </form>
+    </section>
+
+    <section class="login-card mypage" id="mypage-view" aria-labelledby="mypage-title" hidden>
+      <h1 class="login-card__title" id="mypage-title" tabindex="-1"><span class="login-card__title-en">MY PAGE</span>マイページ</h1>
+      <p class="mypage__welcome">ようこそ、<strong id="mypage-email"></strong> さん</p>
+      <p class="mypage__note">ログイン状態はメモリ上でのみ管理しています。ページを再読み込みするとログイン画面に戻ります。</p>
+      <button type="button" class="btn btn--ghost" id="logout-button">ログアウト</button>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__logo">TK<span>.</span>web</p>
+    <p class="footer__copy">&copy; 2026 TK Web Design</p>
+  </footer>
+
+  <script type="module" src="login.js"></script>
+</body>
+</html>
