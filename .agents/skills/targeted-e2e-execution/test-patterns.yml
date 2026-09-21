@@ -1,0 +1,104 @@
+schema_version: 2
+
+# キーワードの意味は references/test-catalog.md を参照する。
+patterns:
+  - id: text-layout
+    controls: [text-input, textarea]
+    steps: [observe]
+    expect: rendered
+    evidence:
+      layout: observe
+
+  - id: text-input
+    controls: [text-input, textarea]
+    steps: [fill-valid]
+    expect: value-reflected
+    evidence:
+      input-state: fill-valid
+
+  - id: text-required
+    controls: [text-input, textarea]
+    when: [required]
+    steps: [clear, validate]
+    expect: validation-error
+    evidence:
+      validation-error: validate
+
+  - id: text-format
+    controls: [text-input, textarea]
+    when: [format-known]
+    steps: [fill-invalid-format, validate]
+    expect: validation-error
+    evidence:
+      validation-error: validate
+
+  - id: text-length
+    controls: [text-input, textarea]
+    when: [max-length-known]
+    steps: [fill-over-max, validate]
+    expect: length-enforced
+    evidence:
+      length-constraint: validate
+
+  - id: choice-layout
+    controls: [select, radio, checkbox]
+    steps: [observe]
+    expect: rendered
+    evidence:
+      initial-state: observe
+
+  - id: choice-selection
+    controls: [select, radio, checkbox]
+    when: [multiple-options]
+    steps: [select-other]
+    expect: selection-reflected
+    evidence:
+      selected-state: select-other
+
+  - id: choice-required
+    controls: [select, radio, checkbox]
+    when: [required, can-unselect]
+    steps: [unselect, validate]
+    expect: validation-error
+    evidence:
+      validation-error: validate
+
+  - id: repeater-layout
+    controls: [repeater]
+    steps: [observe]
+    expect: rendered
+    evidence:
+      layout: observe
+
+  - id: repeater-add
+    controls: [repeater]
+    when: [can-add]
+    steps: [add-item]
+    expect: item-count-increased
+    evidence:
+      added-item: add-item
+
+  - id: repeater-remove
+    controls: [repeater]
+    when: [can-remove]
+    steps: [ensure-removable-item, remove-item]
+    expect: item-count-decreased
+    evidence:
+      removed-item: remove-item
+
+  - id: form-submit
+    controls: [form]
+    when: [requested, can-submit, result-visible]
+    steps: [submit]
+    expect: submission-succeeded
+    evidence:
+      submit-result: submit
+
+  - id: radio-value-tampering
+    controls: [radio]
+    when: [can-submit, allowed-values-known, rejection-visible]
+    steps: [select-valid, tamper-unlisted-value, submit]
+    expect: submission-rejected
+    evidence:
+      tampered-state: tamper-unlisted-value
+      submit-result: submit

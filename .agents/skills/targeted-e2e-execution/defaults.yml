@@ -1,0 +1,34 @@
+pages:
+  login:
+    path: /demo/login/
+    fields:
+      email:
+        locator: "#login-email"
+        default: "demo@example.com"
+      password:
+        locator: "#login-password"
+        default: "demo1234"
+  e2e-flow-personal:
+    path: /demo/e2e-flow/personal.html
+    fields:
+      name:
+        locator: "#personal-name"
+        default: "ヤマダタロウ"
+      birthdate:
+        locator: "#personal-birthdate"
+        default: "1990-01-01"
+      gender:
+        locator: "#personal-gender-male"
+        default: true
+  e2e-flow-employer:
+    path: /demo/e2e-flow/employer.html
+    fields:
+      company:
+        locator: "#employer-company"
+        default: "テスト株式会社"
+      phone:
+        locator: "#employer-phone"
+        default: "0312345678"
+  e2e-flow-complete:
+    path: /demo/e2e-flow/complete.html
+    fields: {}
