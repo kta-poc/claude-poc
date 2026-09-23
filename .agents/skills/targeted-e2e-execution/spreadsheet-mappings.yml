@@ -1,0 +1,137 @@
+schema_version: 1
+
+headers:
+  item_name: 項目名
+  dom_id: DOMのid
+  format: 形式
+  required: 必須有無
+  initial_value: 初期値
+  supplemental_text: 補足文言
+
+required_values:
+  "true": [必須, 有, あり, "true", "TRUE", "1", 1]
+  "false": [任意, 無, なし, "false", "FALSE", "0", 0]
+
+observation_conventions:
+  validation_error:
+    strategy: aria-describedby-or-id-template
+    id_template: "{dom_id}-error"
+  supplemental_text:
+    strategy: exact-text-on-page
+
+initial_value_rules:
+  text-input:
+    comparison: value
+    empty_as: empty-string
+  textarea:
+    comparison: value
+    empty_as: empty-string
+  select:
+    comparison: label
+    empty_as: no-selection
+  radio:
+    comparison: label
+    empty_as: no-selection
+  checkbox:
+    comparison: checked
+    empty_as: false
+    true_values: [選択, チェック, "true", "TRUE", "1", 1]
+    false_values: [未選択, 未チェック, "false", "FALSE", "0", 0]
+
+formats:
+  - id: text
+    source_values: [文字列, テキスト, 自由入力]
+    control_type: text-input
+    constraints:
+      format: text
+    test_values:
+      valid: テスト
+      invalid: null
+    sensitive: false
+
+  - id: textarea
+    source_values: [複数行文字列, テキストエリア]
+    control_type: textarea
+    constraints:
+      format: text
+    test_values:
+      valid: テスト入力
+      invalid: null
+    sensitive: false
+
+  - id: numbers
+    source_values: [数字, 半角数字, 数値, 電話番号]
+    control_type: text-input
+    constraints:
+      format: numbers
+    test_values:
+      valid: "0312345678"
+      invalid: ABC
+    sensitive: false
+
+  - id: email
+    source_values: [メールアドレス, email, Email]
+    control_type: text-input
+    constraints:
+      format: email
+    test_values:
+      valid: test@example.com
+      invalid: not-an-email
+    sensitive: false
+
+  - id: katakana
+    source_values: [カタカナ, 全角カタカナ]
+    control_type: text-input
+    constraints:
+      format: katakana
+    test_values:
+      valid: ヤマダタロウ
+      invalid: Yamada
+    sensitive: false
+
+  - id: date
+    source_values: [日付, date, Date]
+    control_type: text-input
+    constraints:
+      format: date
+    test_values:
+      valid: "2000-01-01"
+      invalid: null
+    sensitive: false
+
+  - id: select
+    source_values: [選択, セレクト, プルダウン]
+    control_type: select
+    constraints: {}
+    test_values:
+      valid: null
+      invalid: null
+    sensitive: false
+
+  - id: radio
+    source_values: [ラジオ, ラジオボタン]
+    control_type: radio
+    constraints: {}
+    test_values:
+      valid: null
+      invalid: null
+    sensitive: false
+
+  - id: checkbox
+    source_values: [チェック, チェックボックス]
+    control_type: checkbox
+    constraints: {}
+    test_values:
+      valid: null
+      invalid: null
+    sensitive: false
+
+  - id: password
+    source_values: [パスワード, password, Password]
+    control_type: text-input
+    constraints:
+      format: password
+    test_values:
+      valid: null
+      invalid: null
+    sensitive: true

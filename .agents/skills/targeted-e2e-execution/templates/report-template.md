@@ -4,6 +4,10 @@
 
 # E2Eテスト結果
 
+## 実行コンテキスト
+
+{{execution_context}}
+
 ## サマリー
 
 {{summary}}
@@ -15,3 +19,7 @@
 ## ケース詳細
 
 {{case_details}}
+
+## 設定差異
+
+{{configuration_drift}}

@@ -4,17 +4,29 @@
 
 # E2Eテスト計画
 
+## 共通テスト仕様書と項目定義書
+
+{{test_spec_source}}
+
 ## 対象と範囲
 
 {{scope}}
 
-## 読み取り専用UI調査結果
+## 画面遷移図
 
-{{ui_discovery}}
+{{flow_diagram}}
 
-## 非対象項目のデフォルト値
+## 操作フロー
 
-{{defaults}}
+{{operation_flow}}
+
+## 静的な前提とデフォルト値
+
+{{assumptions_and_defaults}}
+
+## セッションとケース間リセット
+
+{{session_strategy}}
 
 ## テストケース
 
@@ -24,10 +36,14 @@
 
 {{non_applicable_patterns}}
 
+## 未解決事項
+
+{{unresolved_items}}
+
 ## 実行ルール
 
 {{execution_rules}}
 
-## 承認
+## 承認状態
 
 {{approval_prompt}}

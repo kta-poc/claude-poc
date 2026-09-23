@@ -1,0 +1,108 @@
+schema_version: 1
+
+# 各patternは承認時に単独で読めるよう、遷移を参照共有せず順番どおりに記載する。
+flows:
+  - id: standard-completion
+    description: 基本情報から勤務先情報を入力し、完了画面まで進む通常経路
+    start_page: e2e-flow-personal
+    end_page: e2e-flow-complete
+    session_policy: auto
+    steps:
+      - id: personal-to-employer
+        from: e2e-flow-personal
+        prepare:
+          defaults: [name, birthdate, gender]
+        action:
+          type: submit
+          locator: "#personal-next-button"
+        to: e2e-flow-employer
+      - id: employer-to-complete
+        from: e2e-flow-employer
+        prepare:
+          defaults: [company, phone]
+        action:
+          type: submit
+          locator: "#employer-submit-button"
+        to: e2e-flow-complete
+
+  - id: return-and-correct
+    description: 勤務先情報画面から基本情報へ戻り、再入力して完了画面まで進む経路
+    start_page: e2e-flow-personal
+    end_page: e2e-flow-complete
+    session_policy: auto
+    steps:
+      - id: personal-to-employer-first
+        from: e2e-flow-personal
+        prepare:
+          defaults: [name, birthdate, gender]
+        action:
+          type: submit
+          locator: "#personal-next-button"
+        to: e2e-flow-employer
+      - id: employer-to-personal
+        from: e2e-flow-employer
+        action:
+          type: click
+          locator: "a[href='personal.html']"
+        to: e2e-flow-personal
+      - id: personal-to-employer-second
+        from: e2e-flow-personal
+        prepare:
+          defaults: [name, birthdate, gender]
+        action:
+          type: submit
+          locator: "#personal-next-button"
+        to: e2e-flow-employer
+      - id: employer-to-complete
+        from: e2e-flow-employer
+        prepare:
+          defaults: [company, phone]
+        action:
+          type: submit
+          locator: "#employer-submit-button"
+        to: e2e-flow-complete
+
+  - id: repeat-after-completion
+    description: 一度完了した後に最初からやり直し、再度完了画面まで進む経路
+    start_page: e2e-flow-personal
+    end_page: e2e-flow-complete
+    session_policy: auto
+    steps:
+      - id: personal-to-employer-first
+        from: e2e-flow-personal
+        prepare:
+          defaults: [name, birthdate, gender]
+        action:
+          type: submit
+          locator: "#personal-next-button"
+        to: e2e-flow-employer
+      - id: employer-to-complete-first
+        from: e2e-flow-employer
+        prepare:
+          defaults: [company, phone]
+        action:
+          type: submit
+          locator: "#employer-submit-button"
+        to: e2e-flow-complete
+      - id: complete-to-personal
+        from: e2e-flow-complete
+        action:
+          type: click
+          locator: "#flow-restart-link"
+        to: e2e-flow-personal
+      - id: personal-to-employer-second
+        from: e2e-flow-personal
+        prepare:
+          defaults: [name, birthdate, gender]
+        action:
+          type: submit
+          locator: "#personal-next-button"
+        to: e2e-flow-employer
+      - id: employer-to-complete-second
+        from: e2e-flow-employer
+        prepare:
+          defaults: [company, phone]
+        action:
+          type: submit
+          locator: "#employer-submit-button"
+        to: e2e-flow-complete

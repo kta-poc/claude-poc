@@ -1,4 +1,4 @@
-schema_version: 2
+schema_version: 3
 
 # キーワードの意味は references/test-catalog.md を参照する。
 patterns:
@@ -11,10 +11,26 @@ patterns:
 
   - id: text-input
     controls: [text-input, textarea]
+    when: [valid-test-value-known]
     steps: [fill-valid]
     expect: value-reflected
     evidence:
       input-state: fill-valid
+
+  - id: field-initial-value
+    controls: [text-input, textarea, select, radio, checkbox]
+    steps: [observe-initial]
+    expect: initial-value-matched
+    evidence:
+      initial-state: observe-initial
+
+  - id: field-supplemental-text
+    controls: [text-input, textarea, select, radio, checkbox]
+    when: [supplemental-text-present]
+    steps: [observe-supplemental-text]
+    expect: supplemental-text-rendered
+    evidence:
+      supplemental-text: observe-supplemental-text
 
   - id: text-required
     controls: [text-input, textarea]
@@ -26,7 +42,7 @@ patterns:
 
   - id: text-format
     controls: [text-input, textarea]
-    when: [format-known]
+    when: [invalid-format-test-value-known]
     steps: [fill-invalid-format, validate]
     expect: validation-error
     evidence:
